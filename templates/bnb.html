@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Sora' rel='stylesheet'>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BNB USD Datatable</title>
+  <style>
+    body {
+      background-color: rgb(58, 176, 212);
+      font-family: "Sora";
+    }
+
+    .header {
+      font-size: 36px;
+      margin: auto;
+      text-align: center;
+    }
+
+    table {
+      margin: 2rem auto;
+      justify-content: center;
+      border: 2px solid rgb(0, 0, 0);
+      border-collapse: collapse;
+      width: 99%;
+      background-color: white;
+    }
+
+    tr {
+      border: 2px solid rgb(0, 0, 0);
+      border-radius: 1rem;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th,
+    td {
+      padding: 20px;
+      text-align: center;
+    }
+
+    th {
+      background-color: rgb(58, 176, 212);
+    }
+
+    tr {
+      background-color: #e9e9e9;
+    }
+
+    h3 {
+      font-size: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 class="header">BNB USD (BNB-USD)</h1>
+
+  <h3 style="text-align: center">BNB Data Graph from 2019 till now</h3>
+  <div>{{ div_bnb|safe }}</div>
+  <h3 style="text-align: center">BNB DataFrame - First 10</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Index</th>
+        {% for col in bnb.columns %}
+        <th>{{ col }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for index, row in bnb.head(10).iterrows() %}
+      <tr>
+        <td>{{ index }}</td>
+        {% for col in bnb.columns %}
+        <td>{{ row[col] }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <h3 style="text-align: center">BNB DataFrame - Last 10</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Index</th>
+        {% for col in bnb.columns %}
+        <th>{{ col }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for index, row in bnb.tail(10).iterrows() %}
+      <tr>
+        <td>{{ index }}</td>
+        {% for col in bnb.columns %}
+        <td>{{ row[col] }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3 style="text-align: center">Forecast result</h3>
+  <div>{{ div_meta|safe }}</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Index</th>
+        <th>Forecast</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for index, row in bnb_results[-n_forecast:].iterrows() %}
+      <tr>
+        <td>{{ index }}</td>
+        <td>{{ row['Forecast'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+
+</html>

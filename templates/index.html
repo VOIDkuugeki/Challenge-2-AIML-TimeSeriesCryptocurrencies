@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Sora' rel='stylesheet'>
+    <bnb charset="UTF-8" />
+    <bnb http-equiv="X-UA-Compatible" content="IE=edge" />
+    <bnb name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Challenge 2 Predicting Time Series</title>
+    <style>
+        
+        body {
+            background-color: rgb(58, 176, 212);
+            font-family: "Sora";
+        }
+
+        .header {
+            font-size: 36px;
+            margin: auto;
+            text-align: center;
+        }
+
+        table {
+            margin: 2rem auto;
+            justify-content: center;
+            border: 2px solid rgb(0, 0, 0);
+            border-collapse: collapse;
+            width: 99%;
+            background-color: white;
+        }
+
+        tr {
+            border: 2px solid rgb(0, 0, 0);
+            border-radius: 1rem;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 class="header">Stock Prediction using LSTM</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price in USD</th>
+                <th>Price (24h)</th>
+                <th>Price (7d)</th>
+                <th>Volume</th>
+                <th>2 Month Forecast</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color: #0668e1; font-size: 1.25rem">
+                    <a href="/bnb" style="color: inherit">BNB <i class="fa-brands fa-bnb"></i></a>
+                </td>
+                <td id="bnb-price">{{ bnb_price_today }}</td>
+                <td id="bnb-price-24h">
+                    {{ bnb_price_24h }}<span
+                        style="color: {% if percentage_difference < 0 %}red{% else %}green{% endif %};">
+                        {% if percentage_difference < 0 %} decrease {% else %} increase {% endif %} {{
+                            percentage_difference }}% </span>
+                </td>
+                <td id="bnb-price-7d">
+                    {{ bnb_price_7d }}<span
+                        style="color: {% if bnb_percentage_difference_7d < 0 %}red{% else %}green{% endif %};">
+                        {% if bnb_percentage_difference_7d < 0 %} decrease {% else %} increase {% endif %} {{
+                            bnb_percentage_difference_7d }}% </span>
+                </td>
+                <td id="bnb-volume">{{ bnb_volume }}</td>
+                <td id="bnb-2-months-forecast-graph" style="width: 50%; vertical-align: top">
+                    {{ div_bnb|safe }}
+                </td>
+            </tr>
+            <tr>
+                <td style="color: #f65314; font-size: 1.25rem">
+                    <a href="/sol" style="color: inherit">SOL <i class="fa-brands fa-sol"></i></a>
+                </td>
+                <td id="sol-price">{{ sol_price_today}}</td>
+                <td id="sol-price-24h">
+                    {{ sol_price_24h }}<span
+                        style="color: {% if sol_percentage_difference < 0 %}red{% else %}green{% endif %};">
+                        {% if sol_percentage_difference < 0 %} decrease {% else %} increase {% endif %} {{
+                            sol_percentage_difference }}% </span>
+                </td>
+                <td id="sol-price-7d">
+                    {{ sol_price_7d }}<span
+                        style="color: {% if sol_percentage_difference_7d < 0 %}red{% else %}green{% endif %};">
+                        {% if sol_percentage_difference_7d < 0 %} decrease {% else %} increase {% endif %} {{
+                            sol_percentage_difference_7d }}% </span>
+                </td>
+
+                <td id="sol-volume">{{sol_volume}}</td>
+                <td id="sol-2-months-forecast-graph">
+                    {{ div_sol|safe }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
